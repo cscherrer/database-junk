@@ -48,19 +48,20 @@ dbDisconnect(exampledb)
 
 str(j)
 s <- strsplit(j$sql[1], split="\n")[[1]]
-pattern <- "\\[(w+)\\]"
-pattern <- "\\s+\\[(AlbumId)\\]"
-pattern <- "\\s+\\[(AlbumId)\\]\\s([A-Z0-9\\(\\)])\\s+([NOT\\sNULL|NULL])"
-pattern <- "\\s+\\[(AlbumId)\\]\\s([A-Z]+)\\s.*"
-pattern <- "\\s+\\[(AlbumId)\\]\\s(\\w+)\\s.*"
-pattern <- "\\s+\\[(AlbumId)\\]\\s([A-Z0-9\\(\\)]+)\\s.*"
-pattern <- "\\s+\\[(AlbumId)\\]\\s([A-Z0-9\\(\\)]+)\\s+(.*)"
-pattern <- "\\s+\\[(AlbumId)\\]\\s([A-Z0-9\\(\\)]+)\\s+(NOT NULL|NULL)"
+
 pattern <- "\\s+\\[(.*)\\]\\s([A-Z0-9\\(\\)]+)\\s+(NOT NULL|NULL)"
 gsub(pattern=pattern, replacement="\\1-\\2-\\3", x=s, perl=TRUE)
 gsub(pattern=pattern, replacement="\\3", x=s, perl=TRUE)
 grep(pattern=pattern, s, perl=TRUE)
 
+regexpr(pattern=pattern, s, perl=TRUE)
+gregexpr(pattern=pattern, s, perl=TRUE)
+regexec(pattern=pattern, s)
+grep(pattern=pattern, s, perl=TRUE, value=TRUE)
+
+m <- regexpr(pattern=pattern, s, perl=TRUE)
+regmatches(s, m)
+regmatches(s, m, invert = TRUE)
 
 #####################################
 ## @knitr TweakData
